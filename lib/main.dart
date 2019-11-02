@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:learn_flutter/template/diagramTheLayout.dart';
 import 'package:learn_flutter/widget/gridList.dart';
 import 'package:learn_flutter/widget/tabBar.dart';
 
@@ -11,7 +12,7 @@ class MyApp extends StatelessWidget {
 
     return MaterialApp(
       title: 'Flutter Demo',
-      home: new MyGridList(100,2),
+      home: new BuildingLayoutsTutorial(),
     );
   }
 }
