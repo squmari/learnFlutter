@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:learn_flutter/template/androidDevs.dart';
+import 'package:learn_flutter/template/animateWidget.dart';
 
 void main() => runApp(MyApp());
 
@@ -10,7 +10,7 @@ class MyApp extends StatelessWidget {
 
     return MaterialApp(
       title: 'Flutter Demo',
-      home: new AndroidDevs(),
+      home: AnimateWidget(title: 'Fade Demo'),
     );
   }
 }
