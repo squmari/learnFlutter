@@ -21,7 +21,7 @@ class _MainTemplateState extends State<MainTemplate> {
         appBar: AppBar(
           title: Text(widget.title),
         ),
-        body: myGridList(100, 3),
+        body: myGridList(widget.row, widget.col),
 
       ),
     );

@@ -10,7 +10,7 @@ class MyApp extends StatelessWidget {
 
     return MaterialApp(
       title: 'Flutter Demo',
-      home: MainTemplate(100, 3),
+      home: MainTemplate(5, 1),
     );
   }
 }
