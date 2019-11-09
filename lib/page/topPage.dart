@@ -13,9 +13,8 @@ class TopPage extends StatefulWidget {
 
 class _TopPageState extends State<TopPage> with SingleTickerProviderStateMixin{
 
-  List _items = <Widget>[];
-  String _message;
-  int _tapped = 0;
+  List _drawerItems = <Widget>[];
+  int _bottomTabIndex = 0;
 
   final List<Tab> _topTab = [
     Tab(icon: Icon(Icons.directions_car)),
@@ -33,18 +32,7 @@ class _TopPageState extends State<TopPage> with SingleTickerProviderStateMixin{
       vsync: this,
       length: _topTab.length,
     );
-    _message = 'ok';
-    for (var i = 0; i < 5; i++) {
-      var item = ListTile(
-        leading: const Icon(Icons.android),
-        title: Text('No, $i'),
-        onTap: (){
-          _tapped = i;
-          tapItem();
-        },
-      );
-    _items.add(item);
-    }
+    _createDrawerItem(5);
   }
 
   @override
@@ -61,16 +49,33 @@ class _TopPageState extends State<TopPage> with SingleTickerProviderStateMixin{
         body: TabBarView(
           controller: _tabController,
           children: _topTab.map((Tab tab) {
-            return createTab(tab);
+            return createTopTab(tab);
           }).toList(),
         ),
-        // body: myGridList(widget.row, widget.col),
         drawer: Drawer(
           child: ListView(
             shrinkWrap: true,
             padding: const EdgeInsets.all(20.0),
-            children: _items,
+            children: _drawerItems,
           ),
+        ),
+        bottomNavigationBar: BottomNavigationBar(
+          currentIndex: _bottomTabIndex,
+          items: <BottomNavigationBarItem>[
+            BottomNavigationBarItem(
+              title: Text('bottom'),
+              icon: Icon(Icons.android),
+            ),
+            BottomNavigationBarItem(
+              title: Text('bottom'),
+              icon: Icon(Icons.favorite),
+            ),
+            BottomNavigationBarItem(
+              title: Text('bottom'),
+              icon: Icon(Icons.access_alarm),
+            ),
+          ],
+          onTap: tapBottomIcon,
         ),
 
       ),
@@ -79,17 +84,34 @@ class _TopPageState extends State<TopPage> with SingleTickerProviderStateMixin{
 
   }
 
-  void tapItem(){
-    Navigator.pop(context);
+  void tapBottomIcon(int value){
     setState(() {
-      _message = 'tapped:[$_tapped]';
+      _bottomTabIndex = value;
     });
   }
 
-  Widget createTab(Tab tab){
-    return Center(
-      child: Text('test'),
-    );
+  void _createDrawerItem(int length){
+    for (var i = 0; i < length; i++) {
+      var item = ListTile(
+        leading: const Icon(Icons.android),
+        title: Text('No, $i'),
+        onTap: (){
+          _tapDrawerItem();
+        },
+      );
+      _drawerItems.add(item);
+    }
+  }
+
+  void _tapDrawerItem(){
+    // Navigator.pop(context);
+    // setState(() {
+    //   _message = 'tapped:[$_tapped]';
+    // });
+  }
+
+  Widget createTopTab(Tab tab){
+    return myGridList(20, 3);
   }
 
 
