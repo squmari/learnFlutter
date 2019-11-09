@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:learn_flutter/page/topPage.dart';
 import 'package:learn_flutter/template/mainTemplate.dart';
 
 void main() => runApp(MyApp());
@@ -10,7 +11,7 @@ class MyApp extends StatelessWidget {
 
     return MaterialApp(
       title: 'Flutter Demo',
-      home: MainTemplate(5, 1),
+      home: TopPage(20, 3)
     );
   }
 }
