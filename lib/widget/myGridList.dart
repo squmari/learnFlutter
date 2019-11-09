@@ -11,11 +11,11 @@ GridView myGridList (int row, int col,[double rowSpace = 0, double colSpace = 0]
         children: <Widget>[
           Expanded(
             child: Padding(
-              padding: EdgeInsets.all(10.0),
+              padding: EdgeInsets.all(0.0),
               child: Stack(
                 children: <Widget>[
                   Card(
-                    margin: EdgeInsets.all(0.0),
+                    margin: EdgeInsets.all(5.0),
                     elevation: 5.0,
                     child:Image.asset(
                       'images/lake.jpg',
@@ -51,9 +51,6 @@ GridView myGridList (int row, int col,[double rowSpace = 0, double colSpace = 0]
                 ],
               ),
             ),
-          ),
-          Center(
-            child: Text('test'),
           ),
         ],
       );
