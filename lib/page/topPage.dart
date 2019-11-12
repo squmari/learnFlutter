@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:learn_flutter/template/FavoriteWidget.dart';
+import 'package:learn_flutter/template/androidDevs.dart';
+import 'package:learn_flutter/template/animateWidget.dart';
+import 'package:learn_flutter/template/diagramTheLayout.dart';
 import 'package:learn_flutter/widget/myGridList.dart';
 
 class TopPage extends StatefulWidget {
@@ -86,7 +90,24 @@ class _TopPageState extends State<TopPage> with SingleTickerProviderStateMixin{
 
   void tapBottomIcon(int value){
     setState(() {
-      _bottomTabIndex = value;
+      print(value);
+      if (value == 0) {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => BuildingLayoutsTutorial()),
+        );
+        
+      } else if(value == 1) {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => AndroidDevs()),
+        );
+      }else{
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => AnimateWidget()),
+        );
+      }
     });
   }
 
@@ -110,8 +131,14 @@ class _TopPageState extends State<TopPage> with SingleTickerProviderStateMixin{
     // });
   }
 
+  void pushImage(){
+    setState(() {
+      print("test");
+    });
+  }
+
   Widget createTopTab(Tab tab){
-    return myGridList(20, 3);
+    return myGridList(20, 3,pushImage);
   }
 
 

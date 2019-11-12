@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 
-GridView myGridList (int row, int col,[double rowSpace = 0, double colSpace = 0]){
+GridView myGridList (int row, int col,[pressedMethod, double rowSpace = 0, double colSpace = 0]){
+
+  String _testText = "Push me";
+
   return GridView.count(
     crossAxisCount: col,
     mainAxisSpacing: rowSpace,
@@ -14,6 +17,7 @@ GridView myGridList (int row, int col,[double rowSpace = 0, double colSpace = 0]
               padding: EdgeInsets.all(0.0),
               child: Stack(
                 children: <Widget>[
+
                   Card(
                     margin: EdgeInsets.all(5.0),
                     elevation: 5.0,
@@ -24,6 +28,7 @@ GridView myGridList (int row, int col,[double rowSpace = 0, double colSpace = 0]
                       fit: BoxFit.cover,
                     ),
                   ),
+
                   Container(
                     alignment: Alignment.bottomLeft,
                     child: Wrap(
@@ -33,11 +38,11 @@ GridView myGridList (int row, int col,[double rowSpace = 0, double colSpace = 0]
                         Opacity(
                           opacity: 0.8,
                           child:Chip(
-                            backgroundColor: Colors.grey.shade500,
+                            backgroundColor: Colors.black12,
                             label: Text(
                               '￥10,000',
                               style: TextStyle(
-                                color: Colors.white,
+                                color: Colors.black54,
                                 fontWeight: FontWeight.w700,
                                 fontSize: 12.0,
                                 ),
@@ -48,6 +53,16 @@ GridView myGridList (int row, int col,[double rowSpace = 0, double colSpace = 0]
                       ],
                     ),
                   ),
+
+                  FlatButton(
+                    onPressed: pressedMethod,
+                    color: Colors.black12,
+                    child: Padding(
+                      padding: EdgeInsets.all(10.0),
+                      child: Text(_testText),
+                    ),
+                  ),
+
                 ],
               ),
             ),
