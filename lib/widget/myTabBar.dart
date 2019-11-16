@@ -1,55 +1,42 @@
 import 'package:flutter/material.dart';
 
-class MyTabBar {
+abstract class MyTabBar {
+
   TickerProvider _vsync;
   int _length;
-  MyTabBar(this._vsync, this._length){
-    print("test");
+  List<Tab> _tabs;
+  TabController controller;
+  TabBarView view;
+
+  MyTabBar(this._vsync, this._length, this._tabs){
+    this.controller = this.createTab();
+    this.view = this.createView();
   }
 
-  TabController ab (){
+  TabController createTab(){
     return TabController(vsync: this._vsync, length: this._length,);
   }
-  
+
+  TabBarView createView(){
+    return TabBarView(
+      controller: this.controller,
+      children: this._tabs.map((Tab tab) {
+        return this.setTabView(tab);
+      }).toList(),
+    );
+  }
+
+  Widget setTabView(Tab tab);
 }
 
-class MyTabBarView extends TabBarView{
-  
+class TopPageTabBar extends MyTabBar {
+  TopPageTabBar(TickerProvider _vsync, int _length, List<Tab> _tabs):super(_vsync, _length, _tabs);
+
+  @override
+  Widget setTabView(Tab tab) {
+    return Center(
+      child: Text("test"),
+    );
+  }
+
 }
-
-
-
-
-// class MyTabBar extends StatefulWidget {
-//   @override
-//   _MyTabBarState createState() => new _MyTabBarState();
-// }
-
-// class _MyTabBarState extends State<MyTabBar> {
-//   @override
-//   Widget build(BuildContext context) {
-//     return MaterialApp(
-//       home: DefaultTabController(
-//         length: 3,
-//         child: Scaffold(
-//           appBar: AppBar(
-//             bottom: TabBar(
-//               tabs: [
-//                 Tab(icon: Icon(Icons.directions_car)),
-//                 Tab(icon: Icon(Icons.directions_transit)),
-//                 Tab(icon: Icon(Icons.directions_bike)),
-//               ],
-//             ),
-//             title: Text('Tabs Demo'),
-//           ),
-//           body: TabBarView(
-//             children: [
-//               Icon(Icons.directions_car),
-//               Icon(Icons.directions_transit),
-//               Icon(Icons.directions_bike),
-//             ],
-//           ),
-//         ),
-//       ),
-//     );
-//   }}

@@ -19,6 +19,8 @@ class _TopPageState extends State<TopPage> with SingleTickerProviderStateMixin{
 
   List _drawerItems = <Widget>[];
   int _bottomTabIndex = 0;
+  TopPageTabBar _topPageTabBar;
+  TabController _tabController;
 
   final List<Tab> _topTab = [
     Tab(icon: Icon(Icons.directions_car)),
@@ -26,17 +28,11 @@ class _TopPageState extends State<TopPage> with SingleTickerProviderStateMixin{
     Tab(icon: Icon(Icons.directions_bike)),
   ];
 
-  TabController _tabController;
-  
-
   @override
   void initState() {
     super.initState();
-    _tabController = MyTabBar(this, _topTab.length).ab();
-    // _tabController = TabController(
-    //   vsync: this,
-    //   length: _topTab.length,
-    // );
+    this._topPageTabBar = TopPageTabBar(this, _topTab.length, _topTab);
+    _tabController = _topPageTabBar.controller;
     _createDrawerItem(5);
   }
 
@@ -51,12 +47,7 @@ class _TopPageState extends State<TopPage> with SingleTickerProviderStateMixin{
             tabs: _topTab,
           ),
         ),
-        body: TabBarView(
-          controller: _tabController,
-          children: _topTab.map((Tab tab) {
-            return createTopTab(tab);
-          }).toList(),
-        ),
+        body: _topPageTabBar.view,
         drawer: Drawer(
           child: ListView(
             shrinkWrap: true,
@@ -138,9 +129,9 @@ class _TopPageState extends State<TopPage> with SingleTickerProviderStateMixin{
     });
   }
 
-  Widget createTopTab(Tab tab){
-    return myGridList(20, 3,pushImage);
-  }
+  // Widget createTopTab(Tab tab){
+  //   return myGridList(20, 3,pushImage);
+  // }
 
 
 
