@@ -1,74 +1,72 @@
 import 'package:flutter/material.dart';
+import 'package:learn_flutter/widget/myCard.dart';
 
-GridView myGridList (int row, int col,[pressedMethod, double rowSpace = 0, double colSpace = 0]){
+abstract class MyGridList {
+  GridView grid;
+  int _row, _col;
+  double _rowSpace, _colSpace;
 
-  String _testText = "Push me";
+  MyGridList(this._row, this._col,[this._rowSpace = 0, this._colSpace = 0]){
+    grid = this.createGrid();
+  }
 
-  return GridView.count(
-    crossAxisCount: col,
-    mainAxisSpacing: rowSpace,
-    crossAxisSpacing: colSpace,
-    children: List.generate(row, (index) {
-      return Column(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: <Widget>[
-          Expanded(
-            child: Padding(
-              padding: EdgeInsets.all(0.0),
-              child: Stack(
-                children: <Widget>[
-
-                  Card(
-                    margin: EdgeInsets.all(5.0),
-                    elevation: 5.0,
-                    child:Image.asset(
-                      'images/lake.jpg',
-                      width: 600,
-                      height: 240,
-                      fit: BoxFit.cover,
-                    ),
-                  ),
-
-                  Container(
-                    alignment: Alignment.bottomLeft,
-                    child: Wrap(
-                      // spacing: 4.0, // gap between adjacent chips
-                      // runSpacing: 2.0, // gap between lines
-                      children: <Widget>[
-                        Opacity(
-                          opacity: 0.8,
-                          child:Chip(
-                            backgroundColor: Colors.black12,
-                            label: Text(
-                              '￥10,000',
-                              style: TextStyle(
-                                color: Colors.black54,
-                                fontWeight: FontWeight.w700,
-                                fontSize: 12.0,
-                                ),
-                              ),
-                          ),
-
-                        ),
-                      ],
-                    ),
-                  ),
-
-                  FlatButton(
-                    onPressed: pressedMethod,
-                    color: Colors.black12,
-                    child: Padding(
-                      padding: EdgeInsets.all(10.0),
-                      child: Text(_testText),
-                    ),
-                  ),
-
-                ],
+  GridView createGrid(){
+    return GridView.count(
+      crossAxisCount: this._col,
+      mainAxisSpacing: this._rowSpace,
+      crossAxisSpacing: this._colSpace,
+      children: List.generate(this._row, (index){
+        return Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: <Widget>[
+            Expanded(
+              child: Padding(
+                padding: EdgeInsets.all(0.0),
+                child: Stack(
+                  children: this._setContents(),
+                ),
               ),
             ),
-          ),
-        ],
-      );
-    }),
-  );
+          ],
+        );
+      }),
+    );
+  }
+
+  List<Widget> _setContents();
+
+}
+
+class TopPageGridList extends MyGridList {
+
+  TopPageGridList(int _row, int _col,[double _rowSpace = 0, double _colSpace = 0]):super(_row, _col, _rowSpace, _colSpace);
+  
+  @override
+  List<Widget> _setContents(){
+    List<Widget> _contents = [
+      ShopItemCard().createCard(),
+      Container(
+        alignment: Alignment.bottomLeft,
+        child: Wrap(
+          children: <Widget>[
+            Opacity(
+              opacity: 0.8,
+              child:Chip(
+                backgroundColor: Colors.black12,
+                label: Text(
+                  '￥10,000',
+                  style: TextStyle(
+                    color: Colors.black54,
+                    fontWeight: FontWeight.w700,
+                    fontSize: 12.0,
+                    ),
+                  ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    ];
+    return _contents;
+  }
 }

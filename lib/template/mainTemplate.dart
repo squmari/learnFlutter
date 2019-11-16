@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:learn_flutter/widget/myGridList.dart';
-
 
 /// GridListの生成
 class MainTemplate extends StatefulWidget {
@@ -22,8 +20,6 @@ class _MainTemplateState extends State<MainTemplate> {
         appBar: AppBar(
           title: Text(widget.title),
         ),
-        body: myGridList(widget.row, widget.col),
-
       ),
     );
   }

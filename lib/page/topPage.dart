@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:learn_flutter/template/BuildingLayoutsTutorial.dart';
 import 'package:learn_flutter/template/androidDevs.dart';
-import 'package:learn_flutter/template/animateWidget.dart';
-import 'package:learn_flutter/template/diagramTheLayout.dart';
-import 'package:learn_flutter/widget/myGridList.dart';
+import 'package:learn_flutter/widget/myAppBar.dart';
+import 'package:learn_flutter/widget/myBottomTabBar.dart';
 import 'package:learn_flutter/widget/myTabBar.dart';
 
 class TopPage extends StatefulWidget {
@@ -17,8 +17,6 @@ class TopPage extends StatefulWidget {
 
 class _TopPageState extends State<TopPage> with SingleTickerProviderStateMixin{
 
-  List _drawerItems = <Widget>[];
-  int _bottomTabIndex = 0;
   TopPageTabBar _topPageTabBar;
   TabController _tabController;
 
@@ -32,51 +30,18 @@ class _TopPageState extends State<TopPage> with SingleTickerProviderStateMixin{
   void initState() {
     super.initState();
     this._topPageTabBar = TopPageTabBar(this, _topTab.length, _topTab);
-    _tabController = _topPageTabBar.controller;
-    _createDrawerItem(5);
+    this._tabController = _topPageTabBar.controller;
   }
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
-        appBar: AppBar(
-          title: Text(widget.title),
-          bottom: TabBar(
-            controller: _tabController,
-            tabs: _topTab,
-          ),
-        ),
+        appBar: TopPageAppBar('Top Page', this._tabController, this._topTab).appBar,
         body: _topPageTabBar.view,
-        drawer: Drawer(
-          child: ListView(
-            shrinkWrap: true,
-            padding: const EdgeInsets.all(20.0),
-            children: _drawerItems,
-          ),
-        ),
-        bottomNavigationBar: BottomNavigationBar(
-          currentIndex: _bottomTabIndex,
-          items: <BottomNavigationBarItem>[
-            BottomNavigationBarItem(
-              title: Text('bottom'),
-              icon: Icon(Icons.android),
-            ),
-            BottomNavigationBarItem(
-              title: Text('bottom'),
-              icon: Icon(Icons.favorite),
-            ),
-            BottomNavigationBarItem(
-              title: Text('bottom'),
-              icon: Icon(Icons.access_alarm),
-            ),
-          ],
-          onTap: tapBottomIcon,
-        ),
-
+        bottomNavigationBar: TopPageBottomTabBar(this.tapBottomIcon).bottomBar,
       ),
     );
-
 
   }
 
@@ -86,54 +51,22 @@ class _TopPageState extends State<TopPage> with SingleTickerProviderStateMixin{
       if (value == 0) {
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => BuildingLayoutsTutorial()),
+          MaterialPageRoute(builder: (context) => TopPage(30,3)),
         );
         
       } else if(value == 1) {
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => AndroidDevs()),
+          MaterialPageRoute(builder: (context) => BuildingLayoutsTutorial()),
         );
       }else{
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => AnimateWidget()),
+          MaterialPageRoute(builder: (context) => AndroidDevs()),
         );
       }
     });
   }
-
-  void _createDrawerItem(int length){
-    for (var i = 0; i < length; i++) {
-      var item = ListTile(
-        leading: const Icon(Icons.android),
-        title: Text('No, $i'),
-        onTap: (){
-          _tapDrawerItem();
-        },
-      );
-      _drawerItems.add(item);
-    }
-  }
-
-  void _tapDrawerItem(){
-    // Navigator.pop(context);
-    // setState(() {
-    //   _message = 'tapped:[$_tapped]';
-    // });
-  }
-
-  void pushImage(){
-    setState(() {
-      print("test");
-    });
-  }
-
-  // Widget createTopTab(Tab tab){
-  //   return myGridList(20, 3,pushImage);
-  // }
-
-
 
 }
 

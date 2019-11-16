@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:learn_flutter/widget/myGridList.dart';
 
 abstract class MyTabBar {
 
@@ -34,9 +35,7 @@ class TopPageTabBar extends MyTabBar {
 
   @override
   Widget setTabView(Tab tab) {
-    return Center(
-      child: Text("test"),
-    );
+    return TopPageGridList(30, 3).grid;
   }
 
 }
