@@ -1,21 +1,21 @@
 import 'package:flutter/material.dart';
-import 'package:learn_flutter/page/topPage2.dart';
+import 'package:learn_flutter/page/topPage.dart';
 import 'package:learn_flutter/page/topPage3.dart';
 import 'package:learn_flutter/widget/myAppBar.dart';
 import 'package:learn_flutter/widget/myBottomTabBar.dart';
 import 'package:learn_flutter/widget/myTabBar.dart';
 
-class TopPage extends StatefulWidget {
+class TopPage2 extends StatefulWidget {
 
   final int row, col;
   final String title;
-  TopPage(this.row,this.col,[this.title = 'Top Page']):super();
+  TopPage2(this.row,this.col,[this.title = 'Top Page 2']):super();
   
   @override
-  _TopPageState createState() => new _TopPageState();
+  _TopPage2State createState() => new _TopPage2State();
 }
 
-class _TopPageState extends State<TopPage> with SingleTickerProviderStateMixin{
+class _TopPage2State extends State<TopPage2> with SingleTickerProviderStateMixin{
 
   TopPageTabBar _topPageTabBar;
   TabController _tabController;
