@@ -1,5 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:learn_flutter/widget/star.dart';
+
+class Test extends Card {
+  Test():super();
+
+  testCard(){
+    
+  }
+
+}
 
 Card myCard (){
   return Card(

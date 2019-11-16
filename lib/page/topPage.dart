@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:learn_flutter/template/FavoriteWidget.dart';
 import 'package:learn_flutter/template/androidDevs.dart';
 import 'package:learn_flutter/template/animateWidget.dart';
 import 'package:learn_flutter/template/diagramTheLayout.dart';
 import 'package:learn_flutter/widget/myGridList.dart';
+import 'package:learn_flutter/widget/myTabBar.dart';
 
 class TopPage extends StatefulWidget {
 
@@ -32,10 +32,11 @@ class _TopPageState extends State<TopPage> with SingleTickerProviderStateMixin{
   @override
   void initState() {
     super.initState();
-    _tabController = TabController(
-      vsync: this,
-      length: _topTab.length,
-    );
+    _tabController = MyTabBar(this, _topTab.length).ab();
+    // _tabController = TabController(
+    //   vsync: this,
+    //   length: _topTab.length,
+    // );
     _createDrawerItem(5);
   }
 
