@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:learn_flutter/template/BuildingLayoutsTutorial.dart';
-import 'package:learn_flutter/template/androidDevs.dart';
+import 'package:learn_flutter/page/BuildingLayoutsTutorial.dart';
+import 'package:learn_flutter/page/androidDevs.dart';
 import 'package:learn_flutter/widget/myAppBar.dart';
 import 'package:learn_flutter/widget/myBottomTabBar.dart';
 import 'package:learn_flutter/widget/myTabBar.dart';
@@ -30,15 +30,15 @@ class _TopPageState extends State<TopPage> with SingleTickerProviderStateMixin{
   void initState() {
     super.initState();
     this._topPageTabBar = TopPageTabBar(this, _topTab.length, _topTab);
-    this._tabController = _topPageTabBar.controller;
+    this._tabController = this._topPageTabBar.controller;
   }
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
-        appBar: TopPageAppBar('Top Page', this._tabController, this._topTab).appBar,
-        body: _topPageTabBar.view,
+        appBar: TopPageAppBar(widget.title, this._tabController, this._topTab).appBar,
+        body: this._topPageTabBar.view,
         bottomNavigationBar: TopPageBottomTabBar(this.tapBottomIcon).bottomBar,
       ),
     );
@@ -51,7 +51,7 @@ class _TopPageState extends State<TopPage> with SingleTickerProviderStateMixin{
       if (value == 0) {
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => TopPage(30,3)),
+          MaterialPageRoute(builder: (context) => TopPage(widget.row,widget.col)),
         );
         
       } else if(value == 1) {
