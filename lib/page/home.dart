@@ -20,7 +20,7 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin{
   HomeTabBar _homeTabBar;
   TabController _tabController;
 
-  final List<Tab> _topTab = [
+  final List<Tab> _topTabs = [
     Tab(icon: Icon(Icons.directions_car)),
     Tab(icon: Icon(Icons.directions_transit)),
     Tab(icon: Icon(Icons.directions_bike)),
@@ -29,7 +29,7 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin{
   @override
   void initState() {
     super.initState();
-    this._homeTabBar = HomeTabBar(this, _topTab.length, _topTab);
+    this._homeTabBar = HomeTabBar(this, _topTabs.length, _topTabs);
     this._tabController = this._homeTabBar.controller;
   }
 
@@ -37,7 +37,7 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin{
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
-        appBar: HomeAppBar(widget.title, this._tabController, this._topTab).appBar,
+        appBar: HomeAppBar(widget.title, this._tabController, this._topTabs).appBar,
         body: this._homeTabBar.view,
         bottomNavigationBar: HomeBottomTabBar(this.tapBottomIcon).bottomBar,
       ),

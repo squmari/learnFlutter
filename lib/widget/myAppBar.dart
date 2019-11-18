@@ -26,3 +26,20 @@ class HomeAppBar extends MyAppBar {
     );
   }
 }
+
+// class NotificationAppBar extends MyAppBar {
+//   TabController _controller;
+//   List<Tab> _tabs = [];
+
+//   NotificationAppBar(this._controller, this._tabs):super();
+  
+//   @override
+//   AppBar createAppBar(){
+//     return AppBar(
+//       bottom: TabBar(
+//         controller: this._controller,
+//         tabs: this._tabs,
+//       ),
+//     );
+//   }
+// }

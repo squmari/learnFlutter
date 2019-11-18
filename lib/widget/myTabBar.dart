@@ -39,3 +39,54 @@ class HomeTabBar extends MyTabBar {
   }
 
 }
+
+class NotificationsTabBar extends MyTabBar {
+
+  NotificationsTabBar(TickerProvider _vsync, int _length, List<Tab> _tabs):super(_vsync, _length, _tabs);
+
+  @override
+  Widget setTabView(Tab tab) {
+    return SingleChildScrollView(
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        children: this.contents(),
+      ),
+    );
+  }
+
+  List<Widget> contents(){
+    List<Widget> contents = [];
+    Widget content = Padding(
+      padding: EdgeInsets.all(15.0),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: <Widget>[
+          Padding(
+            padding: EdgeInsets.only(right: 15.0),
+            child: Icon(Icons.fiber_new, size: 40.0,color: Colors.red,),
+          ),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Row(
+                  children: <Widget>[
+                    Icon(Icons.access_time),
+                    Text('3日前'),
+                  ],
+                ),
+                Text('販売手数料も梱包資材も実質無料！超！出品祭開催中♪大好評につき第二弾！'),
+              ],
+            ),
+          ),
+        ],
+      )
+    );
+    for (var i = 0; i < 10; i++) {
+      contents.add(content);
+    }
+    return contents;
+  }
+
+}

@@ -9,7 +9,7 @@ class Notifications extends StatefulWidget {
 
   final int row, col;
   final String title;
-  Notifications(this.row,this.col,[this.title = 'Top Page 2']):super();
+  Notifications(this.row,this.col,[this.title = 'Notifications']):super();
   
   @override
   _NotificationsState createState() => new _NotificationsState();
@@ -17,28 +17,27 @@ class Notifications extends StatefulWidget {
 
 class _NotificationsState extends State<Notifications> with SingleTickerProviderStateMixin{
 
-  HomeTabBar _homeTabBar;
+  NotificationsTabBar _notificationsTabBar;
   TabController _tabController;
 
-  final List<Tab> _topTab = [
-    Tab(icon: Icon(Icons.directions_car)),
-    Tab(icon: Icon(Icons.directions_transit)),
-    Tab(icon: Icon(Icons.directions_bike)),
+  final List<Tab> _topTabs = [
+    Tab(text: 'お知らせ'),
+    Tab(text: 'ニュース'),
   ];
 
   @override
   void initState() {
     super.initState();
-    this._homeTabBar = HomeTabBar(this, _topTab.length, _topTab);
-    this._tabController = this._homeTabBar.controller;
+    this._notificationsTabBar = NotificationsTabBar(this, this._topTabs.length, _topTabs);
+    this._tabController = this._notificationsTabBar.controller;
   }
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
-        appBar: HomeAppBar(widget.title, this._tabController, this._topTab).appBar,
-        body: this._homeTabBar.view,
+        appBar: HomeAppBar(widget.title, this._tabController, this._topTabs).appBar,
+        body: this._notificationsTabBar.view,
         bottomNavigationBar: HomeBottomTabBar(this.tapBottomIcon).bottomBar,
       ),
     );
