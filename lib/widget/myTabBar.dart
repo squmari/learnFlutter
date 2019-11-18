@@ -30,12 +30,12 @@ abstract class MyTabBar {
   Widget setTabView(Tab tab);
 }
 
-class TopPageTabBar extends MyTabBar {
-  TopPageTabBar(TickerProvider _vsync, int _length, List<Tab> _tabs):super(_vsync, _length, _tabs);
+class HomeTabBar extends MyTabBar {
+  HomeTabBar(TickerProvider _vsync, int _length, List<Tab> _tabs):super(_vsync, _length, _tabs);
 
   @override
   Widget setTabView(Tab tab) {
-    return TopPageGridList(30, 3).grid;
+    return HomeGridList(30, 3).grid;
   }
 
 }

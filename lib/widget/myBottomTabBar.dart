@@ -13,24 +13,24 @@ abstract class MyBottomTabBar {
 
 }
 
-class TopPageBottomTabBar extends MyBottomTabBar {
-  TopPageBottomTabBar(Function _tapMethod):super(_tapMethod);
+class HomeBottomTabBar extends MyBottomTabBar {
+  HomeBottomTabBar(Function _tapMethod):super(_tapMethod);
   @override
   BottomNavigationBar createBottomTabBar(){
     return BottomNavigationBar(
       currentIndex: _bottomTabIndex,
       items: <BottomNavigationBarItem>[
         BottomNavigationBarItem(
-          title: Text('bottom'),
+          title: Text('ホーム'),
           icon: Icon(Icons.home),
         ),
         BottomNavigationBarItem(
-          title: Text('bottom'),
-          icon: Icon(Icons.android),
+          title: Text('お知らせ'),
+          icon: Icon(Icons.notifications),
         ),
         BottomNavigationBarItem(
-          title: Text('bottom'),
-          icon: Icon(Icons.favorite),
+          title: Text('マイページ'),
+          icon: Icon(Icons.account_circle),
         ),
       ],
       onTap: _tapMethod,

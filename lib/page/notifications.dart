@@ -1,23 +1,23 @@
 import 'package:flutter/material.dart';
-import 'package:learn_flutter/page/topPage.dart';
-import 'package:learn_flutter/page/topPage2.dart';
+import 'package:learn_flutter/page/Home.dart';
+import 'package:learn_flutter/page/myPage.dart';
 import 'package:learn_flutter/widget/myAppBar.dart';
 import 'package:learn_flutter/widget/myBottomTabBar.dart';
 import 'package:learn_flutter/widget/myTabBar.dart';
 
-class TopPage3 extends StatefulWidget {
+class Notifications extends StatefulWidget {
 
   final int row, col;
   final String title;
-  TopPage3(this.row,this.col,[this.title = 'Top Page 3']):super();
+  Notifications(this.row,this.col,[this.title = 'Top Page 2']):super();
   
   @override
-  _TopPage3State createState() => new _TopPage3State();
+  _NotificationsState createState() => new _NotificationsState();
 }
 
-class _TopPage3State extends State<TopPage3> with SingleTickerProviderStateMixin{
+class _NotificationsState extends State<Notifications> with SingleTickerProviderStateMixin{
 
-  TopPageTabBar _topPageTabBar;
+  HomeTabBar _homeTabBar;
   TabController _tabController;
 
   final List<Tab> _topTab = [
@@ -29,17 +29,17 @@ class _TopPage3State extends State<TopPage3> with SingleTickerProviderStateMixin
   @override
   void initState() {
     super.initState();
-    this._topPageTabBar = TopPageTabBar(this, _topTab.length, _topTab);
-    this._tabController = this._topPageTabBar.controller;
+    this._homeTabBar = HomeTabBar(this, _topTab.length, _topTab);
+    this._tabController = this._homeTabBar.controller;
   }
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
-        appBar: TopPageAppBar(widget.title, this._tabController, this._topTab).appBar,
-        body: this._topPageTabBar.view,
-        bottomNavigationBar: TopPageBottomTabBar(this.tapBottomIcon).bottomBar,
+        appBar: HomeAppBar(widget.title, this._tabController, this._topTab).appBar,
+        body: this._homeTabBar.view,
+        bottomNavigationBar: HomeBottomTabBar(this.tapBottomIcon).bottomBar,
       ),
     );
 
@@ -51,18 +51,18 @@ class _TopPage3State extends State<TopPage3> with SingleTickerProviderStateMixin
       if (value == 0) {
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => TopPage(widget.row,widget.col)),
+          MaterialPageRoute(builder: (context) => Home(widget.row,widget.col)),
         );
         
       } else if(value == 1) {
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => TopPage2(widget.row,widget.col)),
+          MaterialPageRoute(builder: (context) => Notifications(widget.row,widget.col)),
         );
       }else{
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => TopPage3(widget.row,widget.col)),
+          MaterialPageRoute(builder: (context) => MyPage(widget.row,widget.col)),
         );
       }
     });

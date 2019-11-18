@@ -1,23 +1,23 @@
 import 'package:flutter/material.dart';
-import 'package:learn_flutter/page/topPage.dart';
-import 'package:learn_flutter/page/topPage3.dart';
+import 'package:learn_flutter/page/myPage.dart';
+import 'package:learn_flutter/page/notifications.dart';
 import 'package:learn_flutter/widget/myAppBar.dart';
 import 'package:learn_flutter/widget/myBottomTabBar.dart';
 import 'package:learn_flutter/widget/myTabBar.dart';
 
-class TopPage2 extends StatefulWidget {
+class Home extends StatefulWidget {
 
   final int row, col;
   final String title;
-  TopPage2(this.row,this.col,[this.title = 'Top Page 2']):super();
+  Home(this.row,this.col,[this.title = 'Top Page']):super();
   
   @override
-  _TopPage2State createState() => new _TopPage2State();
+  _HomeState createState() => new _HomeState();
 }
 
-class _TopPage2State extends State<TopPage2> with SingleTickerProviderStateMixin{
+class _HomeState extends State<Home> with SingleTickerProviderStateMixin{
 
-  TopPageTabBar _topPageTabBar;
+  HomeTabBar _homeTabBar;
   TabController _tabController;
 
   final List<Tab> _topTab = [
@@ -29,17 +29,17 @@ class _TopPage2State extends State<TopPage2> with SingleTickerProviderStateMixin
   @override
   void initState() {
     super.initState();
-    this._topPageTabBar = TopPageTabBar(this, _topTab.length, _topTab);
-    this._tabController = this._topPageTabBar.controller;
+    this._homeTabBar = HomeTabBar(this, _topTab.length, _topTab);
+    this._tabController = this._homeTabBar.controller;
   }
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
-        appBar: TopPageAppBar(widget.title, this._tabController, this._topTab).appBar,
-        body: this._topPageTabBar.view,
-        bottomNavigationBar: TopPageBottomTabBar(this.tapBottomIcon).bottomBar,
+        appBar: HomeAppBar(widget.title, this._tabController, this._topTab).appBar,
+        body: this._homeTabBar.view,
+        bottomNavigationBar: HomeBottomTabBar(this.tapBottomIcon).bottomBar,
       ),
     );
 
@@ -51,18 +51,18 @@ class _TopPage2State extends State<TopPage2> with SingleTickerProviderStateMixin
       if (value == 0) {
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => TopPage(widget.row,widget.col)),
+          MaterialPageRoute(builder: (context) => Home(widget.row,widget.col)),
         );
         
       } else if(value == 1) {
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => TopPage2(widget.row,widget.col)),
+          MaterialPageRoute(builder: (context) => Notifications(widget.row,widget.col)),
         );
       }else{
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => TopPage3(widget.row,widget.col)),
+          MaterialPageRoute(builder: (context) => MyPage(widget.row,widget.col)),
         );
       }
     });

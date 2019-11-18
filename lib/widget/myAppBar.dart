@@ -9,11 +9,11 @@ abstract class MyAppBar {
   AppBar createAppBar();
 }
 
-class TopPageAppBar extends MyAppBar {
+class HomeAppBar extends MyAppBar {
   String title = '';
   TabController _controller;
   List<Tab> _tabs = [];
-  TopPageAppBar(this.title, this._controller, this._tabs):super();
+  HomeAppBar(this.title, this._controller, this._tabs):super();
   
   @override
   AppBar createAppBar(){

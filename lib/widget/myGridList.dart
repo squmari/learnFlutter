@@ -37,9 +37,9 @@ abstract class MyGridList {
 
 }
 
-class TopPageGridList extends MyGridList {
+class HomeGridList extends MyGridList {
 
-  TopPageGridList(int _row, int _col,[double _rowSpace = 0, double _colSpace = 0]):super(_row, _col, _rowSpace, _colSpace);
+  HomeGridList(int _row, int _col,[double _rowSpace = 0, double _colSpace = 0]):super(_row, _col, _rowSpace, _colSpace);
   
   @override
   List<Widget> _setContents(){
