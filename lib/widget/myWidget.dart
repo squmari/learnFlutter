@@ -10,6 +10,7 @@ class MyWidget extends StatefulWidget {
 
 class _MyWidgetState extends State<MyWidget> {
   ImportantData importantData = ImportantData();
+  GlobalKey<AnotherWidgetState> anotherWidgetStateGlobalKey = GlobalKey();
 
   _doImportantThings(){
     setState(() {
@@ -27,7 +28,9 @@ class _MyWidgetState extends State<MyWidget> {
         child: Column(
           children: <Widget>[
             Text("My Widget"),
-            AnotherWidget(importantData: importantData),
+            Text("Another Widget Direct Reference ${anotherWidgetStateGlobalKey.currentState?.widget?.importantData?.count ?? "empty"}"),
+            AnotherWidget(key: anotherWidgetStateGlobalKey, importantData: importantData),
+            NoRefToImportantDataWidget(),
           ],
         ),
       ),
@@ -53,10 +56,10 @@ class AnotherWidget extends StatefulWidget {
   AnotherWidget({Key key, @required this.importantData}) : assert(importantData != null), super(key: key);
 
   @override
-  _AnotherWidgetState createState() => _AnotherWidgetState();
+  AnotherWidgetState createState() => AnotherWidgetState();
 }
 
-class _AnotherWidgetState extends State<AnotherWidget> {
+class AnotherWidgetState extends State<AnotherWidget> {
   ImportantData get _importantData => widget.importantData;
   @override
   Widget build(BuildContext context) {
@@ -121,6 +124,29 @@ class _ThisIsJustRidiculousWidgetState extends State<ThisIsJustRidiculousWidget>
         children: <Widget>[
           Text('YetAnother Widget'),
           Text("importantData is ${_importantData.count}"),
+        ],
+      ),
+    );
+  }
+}
+
+class NoRefToImportantDataWidget extends StatefulWidget {
+  NoRefToImportantDataWidget({Key key}) : super(key: key);
+
+  @override
+  _NoRefToImportantDataWidgetState createState() => _NoRefToImportantDataWidgetState();
+}
+
+class _NoRefToImportantDataWidgetState extends State<NoRefToImportantDataWidget> {
+  @override
+  Widget build(BuildContext context) {
+    debugPrint("_NoRefToImportantDataWidgetState is built");
+    return Container(
+      height: 100,
+      decoration: BoxDecoration(color: Colors.red),
+      child: Column(
+        children: <Widget>[
+          Text("NoRefToImportantDataWidget"),
         ],
       ),
     );
