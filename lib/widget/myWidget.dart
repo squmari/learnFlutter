@@ -22,24 +22,27 @@ class _MyWidgetState extends State<MyWidget> {
   Widget build(BuildContext context) {
     debugPrint("Mywidget is built");
 
-    return Scaffold(
-      appBar: AppBar(title: Text(widget.title),),
-      body: Center(
-        child: Column(
-          children: <Widget>[
-            Text("My Widget"),
-            Text("Another Widget Direct Reference ${anotherWidgetStateGlobalKey.currentState?.widget?.importantData?.count ?? "empty"}"),
-            AnotherWidget(key: anotherWidgetStateGlobalKey, importantData: importantData),
-            NoRefToImportantDataWidget(),
-          ],
+    return Inherited(
+      importantData:importantData,
+      child :Scaffold(
+        appBar: AppBar(title: Text(widget.title),),
+        body: Center(
+          child: Column(
+            children: <Widget>[
+              Text("My Widget"),
+              Text("Another Widget Direct Reference ${anotherWidgetStateGlobalKey.currentState?.widget?.importantData?.count ?? "empty"}"),
+              AnotherWidget(key: anotherWidgetStateGlobalKey, importantData: importantData),
+              NoRefToImportantDataWidget(),
+            ],
+          ),
         ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _doImportantThings,
-        tooltip: 'Increment',
-        child: Icon(Icons.add),
-      ),
-      backgroundColor: Colors.green,
+        floatingActionButton: FloatingActionButton(
+          onPressed: _doImportantThings,
+          tooltip: 'Increment',
+          child: Icon(Icons.add),
+        ),
+        backgroundColor: Colors.green,
+      )
     );
   }
 }
@@ -141,14 +144,34 @@ class _NoRefToImportantDataWidgetState extends State<NoRefToImportantDataWidget>
   @override
   Widget build(BuildContext context) {
     debugPrint("_NoRefToImportantDataWidgetState is built");
+    Inherited.of(context, observe : true).inheritedPrint();
     return Container(
       height: 100,
       decoration: BoxDecoration(color: Colors.red),
       child: Column(
         children: <Widget>[
           Text("NoRefToImportantDataWidget"),
+          Text("Inherited Widget data is ${Inherited.of(context, observe : true).importantData.count}"),
         ],
       ),
     );
+  }
+}
+
+class Inherited extends InheritedWidget {
+  final ImportantData importantData;
+  const Inherited({Key key, @required this.importantData, @required Widget child}) : super(key: key, child: child);
+
+  void inheritedPrint(){
+    debugPrint('Inherited');
+  }
+
+  static Inherited of(BuildContext context, {@required bool observe}) {
+    return observe ? context.inheritFromWidgetOfExactType(Inherited) : context.ancestorInheritedElementForWidgetOfExactType(Inherited).widget;
+  }
+
+  @override
+  bool updateShouldNotify( Inherited oldWidget) {
+    return oldWidget.importantData.count <= importantData.count;
   }
 }
