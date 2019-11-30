@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:learn_flutter/bloc/myBloc.dart';
 import 'package:learn_flutter/page/counterScreen.dart';
 import 'package:learn_flutter/page/home.dart';
+import 'package:learn_flutter/page/inheritedBottomNavi.dart';
 import 'package:learn_flutter/widget/myWidget.dart';
 
 void main() => runApp(MyApp());
@@ -17,8 +18,14 @@ class MyApp extends StatelessWidget {
       home: 
         BlocProvider(
           builder: (context) => CounterBloc(),
-          child: CounterScreen(),
+          child: InheritedBottomNaviTest(),
         ),
     );
   }
+}
+
+enum BottomNaviPages{
+  HOME,
+  NOTIFICATIONS,
+  MY_PAGE,
 }
