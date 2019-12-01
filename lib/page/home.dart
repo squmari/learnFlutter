@@ -1,11 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:learn_flutter/page/myPage.dart';
-import 'package:learn_flutter/page/notifications.dart';
-import 'package:learn_flutter/widget/myAppBar.dart';
-import 'package:learn_flutter/widget/myBottomTabBar.dart';
 import 'package:learn_flutter/widget/myCard.dart';
-import 'package:learn_flutter/widget/myGridList.dart';
-import 'package:learn_flutter/widget/myTabBar.dart';
 import 'package:learn_flutter/main.dart';
 
 class Home extends StatefulWidget {
@@ -19,12 +13,10 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> with SingleTickerProviderStateMixin{
 
-  HomeTabBar _homeTabBar;
   TabController _tabController;
   int _bottomContent = 0;
 
-
-  final List<Tab> _topTabs = [
+  final List<Tab> _appBarTabs = [
     Tab(icon: Icon(Icons.directions_car)),
     Tab(icon: Icon(Icons.directions_transit)),
     Tab(icon: Icon(Icons.directions_bike)),
@@ -33,15 +25,14 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin{
   @override
   void initState() {
     super.initState();
-    this._homeTabBar = HomeTabBar(this, _topTabs.length, _topTabs);
-    this._tabController = this._homeTabBar.controller;
+    _tabController = TabController(vsync: this, length: _appBarTabs.length);
   }
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
-        appBar: HomeAppBar(widget.title, this._tabController, this._topTabs).appBar,
+        appBar: _appBarSelect(_bottomContent),
         body:  bottomPageSelect(_bottomContent),
         bottomNavigationBar: BottomNavigationBar(
           currentIndex: _bottomContent,
@@ -73,18 +64,57 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin{
   }
 
   //----------------------------------------------------------------
+  //AppBar関連↓
+  //----------------------------------------------------------------
+  Widget _appBarSelect(int page){
+    Widget _appbar;
+    if (page == BottomNaviPages.HOME.index) {
+      _appbar = _appBarHome();
+    }
+    else if (page == BottomNaviPages.NOTIFICATIONS.index) {
+      // _appbar = _appBarHome();
+    }
+    else if (page == BottomNaviPages.MY_PAGE.index) {
+      // _appbar = _appBarHome();
+    }
+    return _appbar;
+  }
+
+  AppBar _appBarHome(){
+    return AppBar(
+      title: Text(widget.title),
+      bottom: TabBar(
+        controller: _tabController,
+        tabs: _appBarTabs,
+      ),
+    );
+  }
+
+  //----------------------------------------------------------------
+  //AppBar関連↑
+  //----------------------------------------------------------------
+
+
+  //----------------------------------------------------------------
   //BottomNavigation関連
   //----------------------------------------------------------------
   Widget bottomPageSelect(int page){
     Widget contents;
     if (page == BottomNaviPages.HOME.index) {
-      contents = _bottomNaviItemGrid(30, 3);
+      contents = TabBarView(
+        controller: _tabController,
+        children: <Widget>[
+          _bottomNaviItemGrid(30, 1),
+          _bottomNaviItemGrid(30, 2),
+          _bottomNaviItemGrid(30, 3),
+        ],
+      );
     }
     else if (page == BottomNaviPages.NOTIFICATIONS.index) {
       contents = _bottomNaviNotification();
     }
     else if (page == BottomNaviPages.MY_PAGE.index) {
-      contents = HomeGridList(30, 1).grid;
+      contents = _bottomNaviItemGrid(30, 1);
     }
     return contents;
   }
@@ -264,6 +294,10 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin{
   //     }
   //   });
   // }
+
+  //----------------------------------------------------------------
+  //BottomNavigation関連↑
+  //----------------------------------------------------------------
 
 }
 
