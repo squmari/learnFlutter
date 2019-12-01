@@ -18,7 +18,7 @@ class MyApp extends StatelessWidget {
       home: 
         BlocProvider(
           builder: (context) => CounterBloc(),
-          child: InheritedBottomNaviTest(),
+          child: Home(),
         ),
     );
   }
