@@ -1,5 +1,8 @@
 
 import 'package:bloc/bloc.dart';
+import 'dart:async';
+import 'package:flutter/material.dart';
+
 
 enum CounterEvent{increment, decrement}
 
@@ -18,4 +21,24 @@ class CounterBloc extends Bloc<CounterEvent, int> {
         break;
     }
   }
+}
+
+class FormBloc {
+
+  final inputTextController = StreamController<String>();
+  final outputTextController = StreamController<String>();
+
+  void update(){
+    inputTextController.stream.listen( (value) { debugPrint(value); });
+  }
+
+  void updateText(String t){
+    inputTextController.add(t);
+  }
+
+  void dispose(){
+    inputTextController.close();
+    outputTextController.close();
+  }
+
 }
