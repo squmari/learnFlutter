@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:learn_flutter/page/counterScreen.dart';
 
 class MyWidget extends StatefulWidget {
   final String title;

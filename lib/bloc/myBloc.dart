@@ -25,20 +25,25 @@ class CounterBloc extends Bloc<CounterEvent, int> {
 
 class FormBloc {
 
-  final inputTextController = StreamController<String>();
-  final outputTextController = StreamController<String>();
+  final _changeTextController = StreamController<String>();
 
-  void update(){
-    inputTextController.stream.listen( (value) { debugPrint(value); });
-  }
+  StreamSink<String> get input => _changeTextController.sink;
+  Stream<String> get output => _changeTextController.stream;
 
   void updateText(String t){
-    inputTextController.add(t);
+    // debugPrint(t);
+    // updatePrint();
+    input.add(t);
+  }
+
+  void updatePrint(){
+    output.listen((t){
+      debugPrint(t);
+    });
   }
 
   void dispose(){
-    inputTextController.close();
-    outputTextController.close();
+    _changeTextController.close();
   }
 
 }
